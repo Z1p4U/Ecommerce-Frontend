@@ -9,12 +9,21 @@ const CategoryMenu = () => {
   const [selectedChild, setSelectedChild] = useState(null);
 
   const handleMouseEnterParent = (parentId) => {
-    setSelectedParent(parentId);
-    setSelectedChild(null);
+    if (getChildren(parentId).length > 0) {
+      setSelectedParent(parentId);
+      setSelectedChild(null);
+    } else {
+      setSelectedParent(null);
+      setSelectedChild(null);
+    }
   };
 
   const handleMouseEnterChild = (childId) => {
-    setSelectedChild(childId);
+    if (getProducts(childId).length > 0) {
+      setSelectedChild(childId);
+    } else {
+      setSelectedChild(null);
+    }
   };
 
   const getChildren = (parentId) => {
@@ -34,40 +43,42 @@ const CategoryMenu = () => {
           setSelectedChild(null);
         }}
       >
-        <h3 className=" px-4 py-2 font-semibold">SHOP BY CATEGORIES</h3>
+        <h3 className="px-4 py-2 font-semibold">SHOP BY CATEGORIES</h3>
         {parentCategories.map((parent) => (
           <div
             key={parent.id}
-            className="menu-item px-4 py-2 cursor-pointer hover:bg-primary hover:text-white flex justify-between items-center border-t group/parent "
+            className="menu-item px-4 py-2 cursor-pointer hover:bg-primary hover:text-white flex justify-between items-center border-t group/parent"
             onMouseEnter={() => handleMouseEnterParent(parent.id)}
-            aria-haspopup="true"
-            aria-expanded={selectedParent === parent.id}
           >
             {parent.title}
-            <FaChevronRight className=" text-white invisible group-hover/parent:visible" />
+            {getChildren(parent.id).length > 0 && (
+              <FaChevronRight className="text-white invisible group-hover/parent:visible" />
+            )}
           </div>
         ))}
-        {selectedParent && (
-          <div className="category-menu absolute ps-2 top-0 left-full h-full w-full ">
+        {selectedParent && getChildren(selectedParent).length > 0 && (
+          <div className="category-menu absolute ps-2 top-0 left-full h-full w-full">
             <div className="bg-white overflow-scroll h-full relative border border-[#0000001A] rounded-xl py-2">
               {getChildren(selectedParent).map((child) => (
                 <div
                   key={child.id}
-                  className="menu-item px-4 py-2  cursor-pointer hover:bg-primary hover:text-white border-b border-[#0000001A] flex justify-between items-center group/child"
+                  className="menu-item px-4 py-2 cursor-pointer hover:bg-primary hover:text-white border-b border-[#0000001A] flex justify-between items-center group/child"
                   onMouseEnter={() => handleMouseEnterChild(child.id)}
                 >
                   {child.title}
-                  <FaChevronRight className=" text-white invisible group-hover/child:visible" />
+                  {getProducts(child.id).length > 0 && (
+                    <FaChevronRight className="text-white invisible group-hover/child:visible" />
+                  )}
                 </div>
               ))}
             </div>
-            {selectedChild && (
+            {selectedChild && getProducts(selectedChild).length > 0 && (
               <div className="product-menu absolute top-0 ps-2 left-full w-full h-full">
-                <div className=" bg-white overflow-scroll h-full border border-[#0000001A] rounded-xl py-2">
+                <div className="bg-white overflow-scroll h-full border border-[#0000001A] rounded-xl py-2">
                   {getProducts(selectedChild).map((product) => (
                     <div
                       key={product.id}
-                      className="menu-item px-4 py-2 cursor-pointer hover:bg-primary border-b border-[#0000001A] hover:text-white "
+                      className="menu-item px-4 py-2 cursor-pointer hover:bg-primary border-b border-[#0000001A] hover:text-white"
                     >
                       {product.title}
                     </div>
