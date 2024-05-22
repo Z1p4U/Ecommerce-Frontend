@@ -25,12 +25,12 @@ const Header = () => {
       name: "EN",
       value: "eng",
     },
-    {
-      id: 2,
-      img: "",
-      name: "MM",
-      value: "mm",
-    },
+    // {
+    //   id: 2,
+    //   img: "",
+    //   name: "MM",
+    //   value: "mm",
+    // },
   ];
 
   const navLinks = [
@@ -49,12 +49,12 @@ const Header = () => {
           <div className=" flex sm:flex-row items-center gap-[10px] text-white">
             <RiCustomerServiceLine className=" hidden sm:block" />
             <div className=" flex flex-col sm:flex-row sm:items-center gap-[5px] sm:gap-[10px] ">
-              <a href="tel:09404477118" className=" text-[13px] md:text-[15px]">
-                094044771118
+              <a href="tel:0912312323" className=" text-[13px] md:text-[15px]">
+                0912312323
               </a>
               <span className=" hidden sm:block"> | </span>
-              <a href="tel:250024653" className=" text-[13px] md:text-[15px]">
-                09250024653
+              <a href="tel:0945645656" className=" text-[13px] md:text-[15px]">
+                0945645656
               </a>
             </div>
           </div>
